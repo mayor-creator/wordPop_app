@@ -9,6 +9,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { StyleSheet, Text, useColorScheme, View } from "react-native";
+import { PlayButton } from "./components/ui/PlayButton";
 import { Colors, DarkColors } from "./constant/colors";
 import { Typography } from "./constant/typography";
 
@@ -39,6 +40,7 @@ export default function App() {
 	return (
 		<View style={[styles.container, themeContainerStyle]}>
 			<Text style={[styles.text, themeTextStyle]}>Hello World!</Text>
+			<PlayButton onPress={() => console.log("Play Button is pressed")} />
 			<StatusBar />
 		</View>
 	);
