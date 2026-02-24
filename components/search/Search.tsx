@@ -18,9 +18,8 @@ type SearchProps = TextInputProps & {
 
 export const Search = ({ onPress, ...rest }: SearchProps) => {
 	const colorScheme = useColorScheme();
-	const { width } = useWindowDimensions();
-
-	const CONTAINER_WIDTH = width * 0.9;
+	//const { width } = useWindowDimensions();
+	// const CONTAINER_WIDTH = width * 0.9; { width: CONTAINER_WIDTH }
 
 	const themeIcon =
 		colorScheme === "light" ? Colors.purple500 : Colors.neutral0;
@@ -32,9 +31,7 @@ export const Search = ({ onPress, ...rest }: SearchProps) => {
 		colorScheme === "light" ? styles.lightText : styles.darkText;
 
 	return (
-		<View
-			style={[styles.inputContainer, inputStyle, { width: CONTAINER_WIDTH }]}
-		>
+		<View style={[styles.inputContainer, inputStyle]}>
 			<TextInput
 				{...rest}
 				style={[styles.text, textStyle]}
