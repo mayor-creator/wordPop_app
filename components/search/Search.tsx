@@ -12,12 +12,11 @@ import { Colors } from "../../constant/colors";
 import { Spacing } from "../../constant/spacing";
 import { Typography } from "../../constant/typography";
 
-type SearchProps = {
+type SearchProps = TextInputProps & {
 	onPress: () => void;
-	props: TextInputProps;
 };
 
-export const Search = ({ onPress, props }: SearchProps) => {
+export const Search = ({ onPress, ...rest }: SearchProps) => {
 	const colorScheme = useColorScheme();
 	const { width } = useWindowDimensions();
 
@@ -37,7 +36,7 @@ export const Search = ({ onPress, props }: SearchProps) => {
 			style={[styles.inputContainer, inputStyle, { width: CONTAINER_WIDTH }]}
 		>
 			<TextInput
-				{...props}
+				{...rest}
 				style={[styles.text, textStyle]}
 				placeholder="Keyboard"
 				placeholderTextColor={placeHolderStyle}
