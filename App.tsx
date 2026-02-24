@@ -8,8 +8,7 @@ import {
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
-import { View } from "react-native";
-
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { MainPage } from "./MainPage";
 
 export default function App() {
@@ -29,9 +28,9 @@ export default function App() {
 	if (!fontLoaded) return null;
 
 	return (
-		<View>
+		<SafeAreaProvider>
 			<StatusBar />
 			<MainPage />
-		</View>
+		</SafeAreaProvider>
 	);
 }
