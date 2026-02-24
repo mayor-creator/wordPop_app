@@ -46,7 +46,7 @@ export const Search = ({ onPress, ...rest }: SearchProps) => {
 				accessibilityLabel="Search"
 				accessibilityRole="button"
 			>
-				<Ionicons name="search" size={24} color={themeIcon} />
+				<Ionicons name="search" size={Spacing.spacing300} color={themeIcon} />
 			</Pressable>
 		</View>
 	);
