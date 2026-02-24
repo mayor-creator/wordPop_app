@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Pronunciation } from "./components/pronunciation/Pronunciation";
 import { Search } from "./components/search/Search";
-import { PlayButton } from "./components/ui/PlayButton";
+import { Spacing } from "./constant/spacing";
 
 export const MainPage = () => {
 	const [search, setSearch] = useState("Keyboard");
@@ -12,7 +13,7 @@ export const MainPage = () => {
 	return (
 		<SafeAreaView style={styles.container}>
 			<Search value={search} onChangeText={setSearch} onPress={handleSearch} />
-			<PlayButton onPress={() => console.log("Play")} />
+			<Pronunciation word={search} pronunciation="/ˈkiːbɔːd/" />
 		</SafeAreaView>
 	);
 };
@@ -20,7 +21,8 @@ export const MainPage = () => {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		paddingLeft: 24,
-		paddingRight: 24,
+		paddingLeft: Spacing.spacing300,
+		paddingRight: Spacing.spacing300,
+		gap: Spacing.spacing400,
 	},
 });
