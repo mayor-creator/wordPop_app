@@ -8,14 +8,11 @@ import {
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
-import { StyleSheet, Text, useColorScheme, View } from "react-native";
-import { Search } from "./components/search/Search";
-import { PlayButton } from "./components/ui/PlayButton";
-import { Colors, DarkColors } from "./constant/colors";
-import { Typography } from "./constant/typography";
-export default function App() {
-	const colorScheme = useColorScheme();
+import { View } from "react-native";
 
+import { MainPage } from "./MainPage";
+
+export default function App() {
 	const [fontLoaded] = useFonts({
 		HankenGrotesk_400Regular,
 		HankenGrotesk_500Medium,
@@ -31,47 +28,10 @@ export default function App() {
 
 	if (!fontLoaded) return null;
 
-	const themeTextStyle =
-		colorScheme === "light" ? styles.lightText : styles.darkText;
-
-	const themeContainerStyle =
-		colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
-
 	return (
-		<View style={[styles.container, themeContainerStyle]}>
-			<Text style={[styles.text, themeTextStyle]}>Hello World!</Text>
-			<PlayButton onPress={() => console.log("Play Button is pressed")} />
-			<Search onPress={() => console.log("Search Button is pressed")} />
+		<View>
 			<StatusBar />
+			<MainPage />
 		</View>
 	);
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		alignItems: "center",
-		justifyContent: "center",
-	},
-
-	text: {
-		fontSize: Typography.h2.fontSize,
-		fontFamily: Typography.h2.fontFamily,
-	},
-
-	lightContainer: {
-		backgroundColor: Colors.background.primary,
-	},
-
-	darkContainer: {
-		backgroundColor: DarkColors.background.primary,
-	},
-
-	lightText: {
-		color: Colors.text.primary,
-	},
-
-	darkText: {
-		color: DarkColors.text.primary,
-	},
-});
