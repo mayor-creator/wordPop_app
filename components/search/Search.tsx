@@ -5,7 +5,6 @@ import {
 	TextInput,
 	type TextInputProps,
 	useColorScheme,
-	useWindowDimensions,
 	View,
 } from "react-native";
 import { Colors } from "../../constant/colors";
@@ -18,9 +17,6 @@ type SearchProps = TextInputProps & {
 
 export const Search = ({ onPress, ...rest }: SearchProps) => {
 	const colorScheme = useColorScheme();
-	//const { width } = useWindowDimensions();
-	// const CONTAINER_WIDTH = width * 0.9; { width: CONTAINER_WIDTH }
-
 	const themeIcon =
 		colorScheme === "light" ? Colors.purple500 : Colors.neutral0;
 	const inputStyle =

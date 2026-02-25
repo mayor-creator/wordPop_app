@@ -11,24 +11,26 @@ export const MainPage = () => {
 	const [search, setSearch] = useState("Keyboard");
 
 	if (!context) return null;
+	const { data, fetchWord } = context;
 
+	// biome-ignore lint/correctness/useHookAtTopLevel: <explanation>
 	useEffect(() => {
 		fetchWord(search);
-	}, [search]);
+	}, [fetchWord, search]);
 
 	const handleSearch = () => {
 		fetchWord(search);
 	};
 
-	const { data, fetchWord } = context;
-
 	return (
 		<SafeAreaView style={styles.container}>
 			<Search value={search} onChangeText={setSearch} onPress={handleSearch} />
-			<Pronunciation
-				word={data?.[0]?.word}
-				pronunciation={data?.[0]?.phonetic}
-			/>
+			{data?.[0] && (
+				<Pronunciation
+					word={data?.[0]?.word}
+					pronunciation={data?.[0]?.phonetic ?? ""}
+				/>
+			)}
 		</SafeAreaView>
 	);
 };

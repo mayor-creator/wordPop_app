@@ -1,4 +1,4 @@
-import { createContext, type ReactNode, useState } from "react";
+import { createContext, type ReactNode, useCallback, useState } from "react";
 import type { DictionaryEntry } from "../types/types";
 
 type DictionaryContextType = {
@@ -17,7 +17,7 @@ type Props = {
 export const DictionaryProvider = ({ children }: Props) => {
 	const [data, setData] = useState<DictionaryEntry[] | null>(null);
 
-	const fetchWord = async (word: string) => {
+	const fetchWord = useCallback(async (word: string) => {
 		try {
 			const response = await fetch(
 				`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`,
@@ -27,7 +27,7 @@ export const DictionaryProvider = ({ children }: Props) => {
 		} catch (error) {
 			console.log("Error fetching word:", error);
 		}
-	};
+	}, []);
 
 	const values = { data, fetchWord };
 
