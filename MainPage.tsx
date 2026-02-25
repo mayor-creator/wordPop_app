@@ -13,6 +13,8 @@ export const MainPage = () => {
 	if (!context) return null;
 	const { data, fetchWord } = context;
 
+	const audioSource = data?.[0]?.phonetics.find((p) => p.audio)?.audio;
+
 	// load default word when the screen opens
 	// biome-ignore lint/correctness/useHookAtTopLevel: <explanation>
 	useEffect(() => {
@@ -36,6 +38,7 @@ export const MainPage = () => {
 				<Pronunciation
 					word={data?.[0]?.word}
 					pronunciation={data?.[0]?.phonetic ?? ""}
+					audioUrl={audioSource}
 				/>
 			)}
 		</SafeAreaView>
