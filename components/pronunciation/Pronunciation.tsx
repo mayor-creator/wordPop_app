@@ -1,3 +1,4 @@
+import { useAudioPlayer } from "expo-audio";
 import { StyleSheet, Text, useColorScheme, View } from "react-native";
 import { Colors } from "../../constant/colors";
 import { Spacing } from "../../constant/spacing";
@@ -7,13 +8,27 @@ import { PlayButton } from "../ui/PlayButton";
 type PronunciationProps = {
 	word: string;
 	pronunciation: string;
+	audioUrl?: string;
 };
 
-export const Pronunciation = ({ word, pronunciation }: PronunciationProps) => {
+export const Pronunciation = ({
+	word,
+	pronunciation,
+	audioUrl,
+}: PronunciationProps) => {
 	const colorScheme = useColorScheme();
+	const player = useAudioPlayer(audioUrl ?? null);
 
 	const textStyle =
 		colorScheme === "light" ? styles.lightText : styles.darkText;
+
+	const handleWordSoundPlay = () => {
+		if (!audioUrl) {
+			return;
+		}
+		player.seekTo(0);
+		player.play();
+	};
 
 	return (
 		<View style={styles.pronunciationContainer}>
@@ -21,7 +36,7 @@ export const Pronunciation = ({ word, pronunciation }: PronunciationProps) => {
 				<Text style={[styles.word, textStyle]}>{word}</Text>
 				<Text style={styles.pronunciation}>{pronunciation}</Text>
 			</View>
-			<PlayButton onPress={() => console.log("Play")} />
+			<PlayButton onPress={handleWordSoundPlay} disabled={!audioUrl} />
 		</View>
 	);
 };
