@@ -9,6 +9,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { DictionaryProvider } from "./context/DictionaryContext";
 import { MainPage } from "./MainPage";
 
 export default function App() {
@@ -28,9 +29,11 @@ export default function App() {
 	if (!fontLoaded) return null;
 
 	return (
-		<SafeAreaProvider>
-			<StatusBar />
-			<MainPage />
-		</SafeAreaProvider>
+		<DictionaryProvider>
+			<SafeAreaProvider>
+				<StatusBar />
+				<MainPage />
+			</SafeAreaProvider>
+		</DictionaryProvider>
 	);
 }
