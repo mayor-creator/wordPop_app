@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Pronunciation } from "./components/pronunciation/Pronunciation";
@@ -13,13 +13,25 @@ export const MainPage = () => {
 	if (!context) return null;
 	const { data, fetchWord } = context;
 
+	// load default word when the screen opens
+	// biome-ignore lint/correctness/useHookAtTopLevel: <explanation>
+	useEffect(() => {
+		fetchWord("Keyboard");
+	}, [fetchWord]);
+
 	const handleSearch = () => {
-		fetchWord(search);
+		if (!search.trim()) return;
+		fetchWord(search.toLowerCase());
 	};
 
 	return (
 		<SafeAreaView style={styles.container}>
-			<Search value={search} onChangeText={setSearch} onPress={handleSearch} />
+			<Search
+				value={search}
+				onChangeText={setSearch}
+				onPress={handleSearch}
+				onSubmitEditing={handleSearch}
+			/>
 			{data?.[0] && (
 				<Pronunciation
 					word={data?.[0]?.word}
