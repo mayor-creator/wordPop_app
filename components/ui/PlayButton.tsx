@@ -10,9 +10,10 @@ import { Colors } from "../../constant/colors";
 
 type PlayButtonProps = {
 	onPress: () => void;
+	disabled: boolean;
 };
 
-export const PlayButton = ({ onPress }: PlayButtonProps) => {
+export const PlayButton = ({ onPress, disabled }: PlayButtonProps) => {
 	const { width } = useWindowDimensions();
 
 	const BUTTON_SIZE = Math.min(width * 0.18, 120);
@@ -46,6 +47,7 @@ export const PlayButton = ({ onPress }: PlayButtonProps) => {
 				pressed && styles.pressed,
 			]}
 			onPress={onPress}
+			disabled={disabled}
 			accessibilityLabel="Play"
 			accessibilityRole="button"
 			accessibilityHint="Start word audio playback"
