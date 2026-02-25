@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Pronunciation } from "./components/pronunciation/Pronunciation";
@@ -12,11 +12,6 @@ export const MainPage = () => {
 
 	if (!context) return null;
 	const { data, fetchWord } = context;
-
-	// biome-ignore lint/correctness/useHookAtTopLevel: <explanation>
-	useEffect(() => {
-		fetchWord(search);
-	}, [fetchWord, search]);
 
 	const handleSearch = () => {
 		fetchWord(search);
