@@ -5,7 +5,7 @@ export type Definition = {
 
 export type Meaning = {
 	partOfSpeech: string;
-	definition: Definition[];
+	definitions: Definition[];
 };
 
 export type Phonetic = {
