@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Definitions } from "./components/definition/Definition";
 import { Pronunciation } from "./components/pronunciation/Pronunciation";
 import { Search } from "./components/search/Search";
 import { Spacing } from "./constant/spacing";
@@ -34,6 +35,7 @@ export const MainPage = () => {
 				onPress={handleSearch}
 				onSubmitEditing={handleSearch}
 			/>
+
 			{data?.[0] && (
 				<Pronunciation
 					word={data?.[0]?.word}
@@ -41,6 +43,10 @@ export const MainPage = () => {
 					audioUrl={audioSource}
 				/>
 			)}
+
+			<ScrollView>
+				{data?.[0]?.meanings && <Definitions meanings={data[0].meanings} />}
+			</ScrollView>
 		</SafeAreaView>
 	);
 };
