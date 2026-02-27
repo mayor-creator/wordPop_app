@@ -20,4 +20,9 @@ export const Typography = {
 		fontWeight: "700",
 		fontFamily: "HankenGrotesk_700Bold",
 	},
+	meaning: {
+		fontSize: 16,
+		fontWeight: "400",
+		fontFamily: "HankenGrotesk_400Regular",
+	},
 };
