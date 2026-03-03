@@ -5,12 +5,16 @@ import {
 	HankenGrotesk_700Bold_Italic,
 	useFonts,
 } from "@expo-google-fonts/hanken-grotesk";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { DictionaryProvider } from "./context/DictionaryContext";
-import { MainPage } from "./MainPage";
+import { BottomTabs } from "./tabs/bottom/BottomTabs";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
 	const [fontLoaded] = useFonts({
@@ -29,11 +33,15 @@ export default function App() {
 	if (!fontLoaded) return null;
 
 	return (
-		<DictionaryProvider>
-			<SafeAreaProvider>
-				<StatusBar />
-				<MainPage />
-			</SafeAreaProvider>
-		</DictionaryProvider>
+		<NavigationContainer>
+			<DictionaryProvider>
+				<SafeAreaProvider>
+					<StatusBar />
+					<Stack.Navigator screenOptions={{ headerShown: false }}>
+						<Stack.Screen name="MainTabs" component={BottomTabs} />
+					</Stack.Navigator>
+				</SafeAreaProvider>
+			</DictionaryProvider>
+		</NavigationContainer>
 	);
 }
