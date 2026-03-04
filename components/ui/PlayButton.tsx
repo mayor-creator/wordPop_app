@@ -1,12 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useMemo } from "react";
-import {
-	Pressable,
-	StyleSheet,
-	useColorScheme,
-	useWindowDimensions,
-} from "react-native";
+import { Pressable, StyleSheet, useWindowDimensions } from "react-native";
 import { Colors } from "../../constant/colors";
+import { useTheme } from "../../context/ThemeContext";
 
 type PlayButtonProps = {
 	onPress: () => void;
@@ -15,19 +11,10 @@ type PlayButtonProps = {
 
 export const PlayButton = ({ onPress, disabled }: PlayButtonProps) => {
 	const { width } = useWindowDimensions();
+	const { isDark } = useTheme();
 
 	const BUTTON_SIZE = Math.min(width * 0.18, 120);
 	const ICON_SIZE = BUTTON_SIZE * 0.4;
-
-	const colorScheme = useColorScheme();
-
-	const themeIcon =
-		colorScheme === "light" ? Colors.purple500 : Colors.neutral0;
-
-	const themeButtonStyle =
-		colorScheme === "light"
-			? styles.lightButtonBackground
-			: styles.darkButtonBackground;
 
 	const dynamicSizeStyle = useMemo(
 		() => ({
@@ -43,7 +30,7 @@ export const PlayButton = ({ onPress, disabled }: PlayButtonProps) => {
 			style={({ pressed }) => [
 				dynamicSizeStyle,
 				styles.playButton,
-				themeButtonStyle,
+				isDark ? styles.darkButtonBackground : styles.lightButtonBackground,
 				pressed && styles.pressed,
 			]}
 			onPress={onPress}
@@ -53,7 +40,11 @@ export const PlayButton = ({ onPress, disabled }: PlayButtonProps) => {
 			accessibilityHint="Start word audio playback"
 			hitSlop={10}
 		>
-			<Ionicons name="play" size={ICON_SIZE} color={themeIcon} />
+			<Ionicons
+				name="play"
+				size={ICON_SIZE}
+				color={isDark ? Colors.neutral0 : Colors.purple500}
+			/>
 		</Pressable>
 	);
 };
