@@ -1,8 +1,9 @@
 import { useAudioPlayer } from "expo-audio";
-import { StyleSheet, Text, useColorScheme, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Colors } from "../../constant/colors";
 import { Spacing } from "../../constant/spacing";
 import { Typography } from "../../constant/typography";
+import { useTheme } from "../../context/ThemeContext";
 import { PlayButton } from "../ui/PlayButton";
 
 type PronunciationProps = {
@@ -16,11 +17,8 @@ export const Pronunciation = ({
 	pronunciation,
 	audioUrl,
 }: PronunciationProps) => {
-	const colorScheme = useColorScheme();
+	const { colors } = useTheme();
 	const player = useAudioPlayer(audioUrl ?? null);
-
-	const textStyle =
-		colorScheme === "light" ? styles.lightText : styles.darkText;
 
 	const handleWordSoundPlay = () => {
 		if (!audioUrl) {
@@ -33,7 +31,9 @@ export const Pronunciation = ({
 	return (
 		<View style={styles.pronunciationContainer}>
 			<View style={styles.textContainer}>
-				<Text style={[styles.word, textStyle]}>{word}</Text>
+				<Text style={[styles.word, { color: colors.text.primary }]}>
+					{word}
+				</Text>
 				<Text style={styles.pronunciation}>{pronunciation}</Text>
 			</View>
 			<PlayButton onPress={handleWordSoundPlay} disabled={!audioUrl} />
@@ -42,13 +42,6 @@ export const Pronunciation = ({
 };
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		paddingLeft: Spacing.spacing300,
-		paddingRight: Spacing.spacing300,
-		gap: Spacing.spacing400,
-	},
-
 	pronunciationContainer: {
 		flexDirection: "row",
 		alignItems: "center",
@@ -68,13 +61,5 @@ const styles = StyleSheet.create({
 		fontSize: Typography.h2.fontSize,
 		fontFamily: Typography.h2.fontFamily,
 		color: Colors.purple500,
-	},
-
-	lightText: {
-		color: Colors.neutral800,
-	},
-
-	darkText: {
-		color: Colors.neutral0,
 	},
 });

@@ -4,35 +4,35 @@ import {
 	StyleSheet,
 	TextInput,
 	type TextInputProps,
-	useColorScheme,
 	View,
 } from "react-native";
 import { Colors } from "../../constant/colors";
 import { Spacing } from "../../constant/spacing";
 import { Typography } from "../../constant/typography";
+import { useTheme } from "../../context/ThemeContext";
 
 type SearchProps = TextInputProps & {
 	onPress: () => void;
 };
 
 export const Search = ({ onPress, ...rest }: SearchProps) => {
-	const colorScheme = useColorScheme();
-	const themeIcon =
-		colorScheme === "light" ? Colors.purple500 : Colors.neutral0;
-	const inputStyle =
-		colorScheme === "light" ? styles.lightInput : styles.darkInput;
-	const placeHolderStyle =
-		colorScheme === "light" ? Colors.neutral800 : Colors.neutral0;
-	const textStyle =
-		colorScheme === "light" ? styles.lightText : styles.darkText;
+	const { colors, isDark } = useTheme();
 
 	return (
-		<View style={[styles.inputContainer, inputStyle]}>
+		<View
+			style={[
+				styles.inputContainer,
+				{
+					backgroundColor: colors.card,
+					borderColor: isDark ? "transparent" : Colors.neutral50,
+				},
+			]}
+		>
 			<TextInput
 				{...rest}
-				style={[styles.text, textStyle]}
+				style={[styles.text, { color: colors.text.primary }]}
 				placeholder="Keyboard"
-				placeholderTextColor={placeHolderStyle}
+				placeholderTextColor={colors.text.primary}
 				returnKeyType="search"
 				autoCorrect={false}
 			/>
@@ -42,7 +42,11 @@ export const Search = ({ onPress, ...rest }: SearchProps) => {
 				accessibilityLabel="Search"
 				accessibilityRole="button"
 			>
-				<Ionicons name="search" size={Spacing.spacing300} color={themeIcon} />
+				<Ionicons
+					name="search"
+					size={Spacing.spacing300}
+					color={isDark ? colors.text.primary : Colors.purple500}
+				/>
 			</Pressable>
 		</View>
 	);

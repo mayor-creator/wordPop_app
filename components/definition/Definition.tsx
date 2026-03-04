@@ -1,7 +1,7 @@
-import { StyleSheet, Text, useColorScheme, View } from "react-native";
-import { Colors } from "../../constant/colors";
+import { StyleSheet, Text, View } from "react-native";
 import { Spacing } from "../../constant/spacing";
 import { Typography } from "../../constant/typography";
+import { useTheme } from "../../context/ThemeContext";
 import type { Meaning } from "../../types/types";
 
 type DefinitionProps = {
@@ -9,15 +9,7 @@ type DefinitionProps = {
 };
 
 export const Definitions = ({ meanings }: DefinitionProps) => {
-	const colorScheme = useColorScheme();
-
-	const textStyle =
-		colorScheme === "light" ? styles.lightText : styles.darkText;
-
-	const definitionStyle =
-		colorScheme === "light"
-			? styles.definitionLightText
-			: styles.definitionDarkText;
+	const { colors } = useTheme();
 
 	if (!meanings?.length) {
 		return <Text>No definitions found.</Text>;
@@ -31,7 +23,9 @@ export const Definitions = ({ meanings }: DefinitionProps) => {
 					style={styles.meaningContainer}
 				>
 					{/* Part of speech (shown once) */}
-					<Text style={[styles.partOfSpeechText, textStyle]}>
+					<Text
+						style={[styles.partOfSpeechText, { color: colors.text.primary }]}
+					>
 						{meaning.partOfSpeech}
 					</Text>
 
@@ -39,11 +33,21 @@ export const Definitions = ({ meanings }: DefinitionProps) => {
 					{meaning.definitions.map((def) => (
 						<View key={def.definition}>
 							<View style={styles.definitionContent}>
-								<Text style={[styles.definitionText, definitionStyle]}>
+								<Text
+									style={[
+										styles.definitionText,
+										{ color: colors.text.primary },
+									]}
+								>
 									{def.definition}
 								</Text>
 								{def.example && (
-									<Text style={[styles.exampleText, definitionStyle]}>
+									<Text
+										style={[
+											styles.exampleText,
+											{ color: colors.text.secondary },
+										]}
+									>
 										Example: {def.example}
 									</Text>
 								)}
@@ -80,21 +84,5 @@ const styles = StyleSheet.create({
 	exampleText: {
 		fontFamily: Typography.body.fontFamily,
 		fontSize: Typography.body.fontSize,
-	},
-
-	lightText: {
-		color: Colors.neutral800,
-	},
-
-	darkText: {
-		color: Colors.neutral0,
-	},
-
-	definitionLightText: {
-		color: Colors.neutral800,
-	},
-
-	definitionDarkText: {
-		color: Colors.neutral0,
 	},
 });
