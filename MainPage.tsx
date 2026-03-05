@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Definitions } from "./components/definition/Definition";
 import { Pronunciation } from "./components/pronunciation/Pronunciation";
 import { Search } from "./components/search/Search";
+import { SaveButton } from "./components/ui/SaveButton";
 import { Spacing } from "./constant/spacing";
 import { DictionaryContext } from "./context/DictionaryContext";
 
@@ -47,6 +48,8 @@ export const MainPage = () => {
 			<ScrollView>
 				{data?.[0]?.meanings && <Definitions meanings={data[0].meanings} />}
 			</ScrollView>
+
+			<SaveButton />
 		</SafeAreaView>
 	);
 };
