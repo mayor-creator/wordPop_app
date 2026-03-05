@@ -12,6 +12,8 @@ export const Colors = {
 	purple600: "#8F19E8",
 	purple500: "#A445ED",
 	red500: "#FF5252",
+	success: "#6D9E51",
+	green950: "#237227",
 	background: { primary: "#FFFFFF" },
 	text: { primary: "#2D2D2D", secondary: "#757575", tertiary: "#A445ED" },
 };
