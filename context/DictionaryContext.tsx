@@ -44,7 +44,7 @@ export const DictionaryProvider = ({ children }: Props) => {
 	}, []);
 
 	const saveWord = useCallback(async () => {
-		if (!data) return;
+		if (!data || data.length === 0) return;
 
 		try {
 			const updatedWords = [...savedWords, ...data];
