@@ -38,11 +38,19 @@ export const SaveButton = () => {
 			style={({ pressed }) => [
 				styles.button,
 				isDark ? styles.darkButtonBackground : styles.lightButtonBackground,
+				isSaved && styles.savedButton,
 				pressed && styles.pressed,
 			]}
 			onPress={handlePress}
 		>
-			<Text style={styles.buttonText}>{isSaved ? "Saved" : "Save Word"}</Text>
+			<Text
+				style={[
+					styles.buttonText,
+					{ color: isDark ? Colors.neutral0 : Colors.neutral950 },
+				]}
+			>
+				{isSaved ? "Saved" : "Save Word"}
+			</Text>
 		</Pressable>
 	);
 };
@@ -51,8 +59,9 @@ const styles = StyleSheet.create({
 	button: {
 		borderWidth: 1,
 		borderRadius: BorderRadius.radius10,
+		alignSelf: "flex-start",
+		minWidth: 100,
 		padding: Spacing.spacing100,
-		width: "30%",
 	},
 	buttonText: {
 		fontFamily: Typography.body.fontFamily,
@@ -69,5 +78,11 @@ const styles = StyleSheet.create({
 	},
 	darkButtonBackground: {
 		backgroundColor: Colors.purple500,
+		borderColor: "transparent",
+	},
+	savedButton: {
+		backgroundColor: Colors.success,
+		borderColor: Colors.green950,
+		borderWidth: 2,
 	},
 });
